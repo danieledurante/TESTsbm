@@ -1,6 +1,6 @@
 Description
 ================
-As described in the [`README.md`](https://github.com/danieledurante/TESTsbm/blob/master/README.md) file, this tutorial contains guidelines and code to perform the analyses for the simulation study illustrated in the article [**Bayesian testing for exogenous partition structures in stochastic block models**](https://github.com/danieledurante/TESTsbm). In particular, you will find a detailed step-by-step guide and `R` code to **implement the Gibbs-sampler presented in the article** and to **perform posterior inference and testing** under the methods described in the article. For implementation purposes, **execute the code below considering the same order in which is presented**.
+As described in the [`README.md`](https://github.com/danieledurante/TESTsbm/blob/master/README.md) file, this tutorial contains guidelines and code to perform the analyses for the simulation study illustrated in the article [**Bayesian testing for exogenous partition structures in stochastic block models**](https://github.com/danieledurante/TESTsbm). In particular, you will find a detailed step-by-step guide and `R` code to **implement the Gibbs-sampler presented in the article** and to **perform posterior inference and testing** under the methods described in the article. For implementation purposes, **execute the code below considering the same order in which it is presented**.
 
 Upload the data and codes
 ================
