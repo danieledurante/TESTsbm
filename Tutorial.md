@@ -29,7 +29,7 @@ diag(Y)
 
 Posterior computation via Gibbs sampling
 ================
-As discussed in the article, the network under analysis has *n=60* and *3* equally–sized groups of *20* nodes each, displaying classical community structures. The true node membership vector is stored in `z_0`. To check if the observed network actually supports the partition structure in `z_0`, let us study the posterior distribution of the node membership vector under the flexible **infinite relational model [IRM]**. This is done via the MCMC algorithm presented in the article and implemented in the `R` function `irm()`; see the source code in `TESTsbm.R` for a description of the inputs and outputs of such a function.
+As discussed in the article, the network under analysis has *n=60* and *3* equally–sized groups of *20* nodes each, displaying classical community structures. The true node membership vector is stored in `z_0`. To check if the observed network actually supports the partition structure in `z_0`, let us study the posterior distribution of the node membership vector under the flexible **infinite relational model (IRM)**. This is done via the MCMC algorithm presented in the article and implemented in the `R` function `irm()`; see the source code in `TESTsbm.R` for a description of the inputs and outputs of such a function.
 
 ``` r
 #-------------------------------------------------------------------------------------------
@@ -104,7 +104,7 @@ ggsave("Trace.png",width=10,height=3)
 ```
 ![](https://github.com/danieledurante/TESTsbm/blob/master/Data%20and%20Codes/Trace.png)
 
-The above diagnostics confirm that our Gibbs sampler has **satisfactory mixing**. Due to the stability of the chains for the quantity in eq. (1), we can reliably compute the logarithm of the marginal likelihood under the IRM via the harmonic mean estimate in eq. (4). Once this quantity is available, we can compute the logarithm of the **Bayes Factors** to compare the IRM [which learns the community structure from the data] and various SBMs which condition on different exogenous partitions structures; see Section 2 in the article for more details on this Bayesian testing procedure.
+The above diagnostics confirm that our Gibbs sampler has **satisfactory mixing**. Due to the stability of the chains for the quantity in eq. (1), we can reliably compute the logarithm of the marginal likelihood under the IRM via the harmonic mean estimate in eq. (4). Once this quantity is available, we can compute the logarithm of the **Bayes Factors** to compare the IRM (which learns the community structure from the data) and various SBMs which condition on different exogenous partitions structures; see Section 2 in the article for more details on this Bayesian testing procedure.
 
 ``` r
 #------------------------------------------------------------------------------------------
@@ -140,11 +140,11 @@ z_block <- c(rep(1,40),rep(2,20))
 #[1] 260.4025
 ```
 
-As expected, in the above tests, the only one which fails to reject the null hypothesis is the one where the exogenous partition under analysis is the correct one `z_0`.
+As expected, in the above tests, the only one which does not favor the IRM is the one where the exogenous partition under analysis is the correct `z_0`.
 
-To confirm the above results, let us also obtain a **point estimate** [`memb_Z`] and **credible ball** for the community assignments under the IRM. This is done by adapting the methods presented in [Wade and Ghahramani (2018)](https://projecteuclid.org/euclid.ba/1508378464) and implemented in the `R` package `mcclust.ext`. To apply these strategies we also require an estimate of the **co-clustering matrix**, whose generic element `c[v,u]` encodes the relative frequency of MCMC samples in which nodes `v` and `u` are in the same community. Such an estimate can be obtained via the function `pr_cc()` in the source code `TESTsbm.R`. 
+To confirm the above results, let us also obtain a **point estimate** (`memb_Z`) and **credible ball** for the community assignments under the IRM. This is done by adapting the methods presented in [Wade and Ghahramani (2018)](https://projecteuclid.org/euclid.ba/1508378464) and implemented in the `R` package `mcclust.ext`. To apply these strategies we also require an estimate of the **co-clustering matrix**, whose generic element `c[v,u]` encodes the relative frequency of MCMC samples in which nodes `v` and `u` are in the same community. Such an estimate can be obtained via the function `pr_cc()` in the source code `TESTsbm.R`. 
 
-Once the above quantities are available, we can check which exogenous partitions fall in the credible ball of the one obtained under the IRM. This is done by comparing the **variation of information [VI] distance** between `memb_Z` and a given exogenous partition with the one between `memb_Z` and the partition defining the bound of the credible ball.
+Once the above quantities are available, we can check which exogenous partitions fall in the credible ball of the one obtained under the IRM. This is done by comparing the **variation of information (VI) distance** between `memb_Z` and a given exogenous partition with the one between `memb_Z` and the partition defining the bound of the credible ball.
 
 ``` r
 #------------------------------------------------------------------------------------------
