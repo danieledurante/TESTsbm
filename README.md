@@ -1,6 +1,6 @@
 # TESTsbm: Bayesian testing for exogenous partition structures in stochastic block models
 
-This repository is associated with the article [**Bayesian testing for exogenous partition structures in stochastic block models**](https://github.com/danieledurante/TESTsbm) and aims at providing detailed materials and codes implement the inference and testing methods presented in the article.
+This repository is associated with the article [**Bayesian testing for exogenous partition structures in stochastic block models**](https://github.com/danieledurante/TESTsbm) and aims at providing detailed materials and codes to implement the inference and testing methods presented in the article.
 
 The documentation is organized in two main parts described below.  
 
