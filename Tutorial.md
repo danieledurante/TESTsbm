@@ -222,7 +222,7 @@ row_plot$True <- as.factor(row_plot$True)
 
 F1 <- pheatmap(Y_plot,color=colorRampPalette(brewer.pal(9,"Greys")[c(1,8)])(30),cluster_cols = F, cluster_rows= F,gaps_row=c(20,40),gaps_col=c(20,40),annotation_row = row_plot,annotation_names_row=F,show_rownames=F,show_colnames=F,legend=F)
 
-ggsave(“F1.png",width=5,height=5)
+ggsave("F1.png",width=5,height=5)
 
 ```
 ![](https://github.com/danieledurante/TESTsbm/blob/master/Data%20and%20Codes/F1.png)
