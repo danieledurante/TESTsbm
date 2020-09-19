@@ -207,12 +207,12 @@ return(1-sum(diag(table(lowerTriangle(Y),lowerTriangle(pred>0.5))))/length(lower
 
 
 ####################################################################################
-# COMPUTE LOG MARGINAL LIKELIHOOD  #################################################
+# COMPUTE LOG LIKELIHOOD  ##########################################################
 ####################################################################################
 
 log_pY_z<-function(Y,z,a,b){
 # in: Adjacency matrix Y, one vector of node labels z, hyperparameters (a,b) of Beta priors for block probabilities
-# out: logarithm of the marginal likelihood in eq. [1] evaluated at z.
+# out: logarithm of the likelihood in eq. [1] evaluated at z.
 
 H<-length(unique(z))
 colnames(Y)<-rownames(Y)<-z
