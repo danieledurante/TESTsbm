@@ -99,8 +99,8 @@ traceplot$Group <- c(rep("Traceplot of the log-likelihood",dim(traceplot)[1]/2),
 traceplot$Group <- factor(traceplot$Group,levels=c("Traceplot of the log-likelihood","Trajectory for the logarithm of the harmonic mean estimate"))
 
 
-Trace <- ggplot(traceplot,aes(y=value,x=X1)) + geom_line() + facet_wrap(.~Group,scales="free") + theme_bw() + labs(y="",x="")
-ggsave("Trace.png",width=10,height=3)
+Trace <- ggplot(traceplot,aes(y=value,x=X1)) + geom_line(alpha=0.7) + facet_wrap(.~Group,scales="free") + theme_bw() + labs(y="",x="")
+ggsave("Trace.png",width=10,height=2.75)
 ```
 ![](https://github.com/danieledurante/TESTsbm/blob/master/Data%20and%20Codes/Trace.png)
 
