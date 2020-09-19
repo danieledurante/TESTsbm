@@ -51,11 +51,11 @@ Note that for the hyperparameters of the `Beta(a,b)` **priors on the block proba
 
 Posterior inference
 ================
-This section contains the **code to perform testing, estimation and uncertainty quantification**. In particular, we **reproduce the analyses in Section 4 of the article**. To accomplish this goal let us first compute the posterior samples of the **logarithm of the marginal likelihoods** in eq. (1) and the trajectory of the **harmonic mean estimator** as a function of the MCMC samples. 
+This section contains the **code to perform testing, estimation and uncertainty quantification**. In particular, we **reproduce the analyses in Section 4 of the article**. To accomplish this goal let us first compute the posterior samples of the **logarithm of the likelihoods** in eq. (1) and the trajectory of the **harmonic mean estimator** as a function of the MCMC samples. 
 
 ``` r
 #------------------------------------------------------------------------------------------
-# Posterior samples of the logarithm of the marginal likelihood in eq. (1) for the IRM
+# Posterior samples for the logarithm of the likelihood in eq. (1) for the IRM
 #------------------------------------------------------------------------------------------
 
 l_y_CRP <- rep(0,MCMC_samples)
@@ -95,8 +95,8 @@ Before studying the Bayes factors, let us perform some **MCMC diagnostics** for 
 traceplot <- melt(cbind(l_y,l_temp))
 traceplot <- traceplot[,-2]
 
-traceplot$Group <- c(rep("Traceplot log-marginal likelihood",dim(traceplot)[1]/2),rep("Harmonic mean trajectory",dim(traceplot)[1]/2))
-traceplot$Group <- factor(traceplot$Group,levels=c("Traceplot log-marginal likelihood","Harmonic mean trajectory"))
+traceplot$Group <- c(rep("Traceplot of the log-likelihood",dim(traceplot)[1]/2),rep("Trajectory for the logarithm of the harmonic mean estimate",dim(traceplot)[1]/2))
+traceplot$Group <- factor(traceplot$Group,levels=c("Traceplot of the log-likelihood","Trajectory for the logarithm of the harmonic mean estimate"))
 
 
 Trace <- ggplot(traceplot,aes(y=value,x=X1)) + geom_line() + facet_wrap(.~Group,scales="free") + theme_bw() + labs(y="",x="")
@@ -142,7 +142,7 @@ z_block <- c(rep(1,40),rep(2,20))
 
 As expected, in the above tests, the only one which does not favor the IRM is the one where the exogenous partition under analysis is the correct `z_0`.
 
-To confirm the above results, let us also obtain a **point estimate** (`memb_Z`) and **credible ball** for the community assignments under the IRM. This is done by adapting the methods presented in [Wade and Ghahramani (2018)](https://projecteuclid.org/euclid.ba/1508378464) and implemented in the `R` package `mcclust.ext`. To apply these strategies we also require an estimate of the **co-clustering matrix**, whose generic element `c[v,u]` encodes the relative frequency of MCMC samples in which nodes `v` and `u` are in the same community. Such an estimate can be obtained via the function `pr_cc()` in the source code `TESTsbm.R`. 
+To confirm the above results, let us also obtain a **point estimate** (`memb_Z`) and **credible ball** for the cluster assignments under the IRM. This is done by adapting the methods presented in [Wade and Ghahramani (2018)](https://projecteuclid.org/euclid.ba/1508378464) and implemented in the `R` package `mcclust.ext`. To apply these strategies we also require an estimate of the **co-clustering matrix**, whose generic element `c[v,u]` encodes the relative frequency of MCMC samples in which nodes `v` and `u` are in the same group. Such an estimate can be obtained via the function `pr_cc()` in the source code `TESTsbm.R`. 
 
 Once the above quantities are available, we can check which exogenous partitions fall in the credible ball of the one obtained under the IRM. This is done by comparing the **variation of information (VI) distance** between `memb_Z` and a given exogenous partition with the one between `memb_Z` and the partition defining the bound of the credible ball.
 
