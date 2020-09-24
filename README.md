@@ -10,6 +10,6 @@ The documentation is organized in two main parts described below.
 
 The analyses are performed with a **MacBook Pro (OS X El Capitan, version 10.11.6)**, using a `R` version **3.6.3**. 
 
-All the above functions rely on a **basic and reproducible `R` implementation**, mostly meant to provide a clear understanding of the computational routines and steps associated with the proposed model. **Optimized computational routines relying on C++ coding can be easily considered.** 
+All the above functions rely on a **basic and reproducible `R` implementation**, mostly meant to provide a clear understanding of the computational routines and steps associated with the proposed methods. **Optimized computational routines relying on C++ coding can be easily considered.** 
 
 The **Alzheimer’s networks** considered in the application are openly available in the supplementary files of the article  [**Predicting brain network changes in Alzheimer's disease with link prediction algorithms**](https://doi.org/10.1039/C6MB00815A).
