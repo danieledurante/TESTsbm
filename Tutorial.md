@@ -104,7 +104,7 @@ ggsave("Trace.png",width=10,height=2.75)
 ```
 ![](https://github.com/danieledurante/TESTsbm/blob/master/Data%20and%20Codes/Trace.png)
 
-The above diagnostics confirm that our Gibbs sampler has **satisfactory mixing**. Due to the stability of the chains for the quantity in eq. (1), we can reliably compute the logarithm of the marginal likelihood under the IRM via the harmonic mean estimate in eq. (4). Once this quantity is available, we can compute the logarithm of the **Bayes Factors** to compare the IRM (which learns the community structure from the data) and various SBMs which condition on different exogenous partitions structures; see Section 2 in the article for more details on this Bayesian testing procedure.
+The above diagnostics confirm that our Gibbs sampler has **satisfactory mixing**. Due to the stability of the chains for the quantity in eq. (1), we can reliably compute the logarithm of the marginal likelihood under the IRM via the harmonic mean estimate in eq. (4). Once this quantity is available, we can compute the logarithm of the **Bayes Factors** to compare the IRM (which learns the partition structure from the data) and various SBMs which condition on different exogenous partitions structures; see Section 2 in the article for more details on this Bayesian testing procedure.
 
 ``` r
 #------------------------------------------------------------------------------------------
@@ -132,7 +132,7 @@ z_ref <- c(rep(1,10),rep(2,10),rep(3,10),rep(4,10),rep(5,10),rep(6,10))
 #[1] 25.68349
 
 #------------------------------------------------------------------------------------------
-# Blocked exogenous partitions
+# Coarsened exogenous partitions
 #------------------------------------------------------------------------------------------
 
 z_block <- c(rep(1,40),rep(2,20))
@@ -193,14 +193,14 @@ VI(z_ref,t(memb_Z))
 #[1] 1
 
 #-------------------------------
-# Blocked exogenous partitions
+# Coarsened exogenous partitions
 #-------------------------------
 
 VI(z_block,t(memb_Z))
 #[1] 0.6666667
 ```
 
-All the above exogenous partitions are outside the credible ball, except the one representing the exact community structure `z_0`. This means that only `z_0` appears to be plausible under the posterior for the node memberships provided by the IRM. This is in line with the results of the tests.
+All the above exogenous partitions are outside the credible ball, except the one representing the exact grouping structure `z_0`. This means that only `z_0` appears to be plausible under the posterior for the node memberships provided by the IRM. This is in line with the results of the tests.
 
 To conclude our analysis we also study the **misclassification error** under the IRM using the function `misclass()` in the source code `TESTsbm.R`. Such a measure provides an overall assessment for the goodness of fit.
 
