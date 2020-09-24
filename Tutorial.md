@@ -51,7 +51,7 @@ Note that for the hyperparameters of the `Beta(a,b)` **priors on the block proba
 
 Posterior inference
 ================
-This section contains the **code to perform testing, estimation and uncertainty quantification**. In particular, we **reproduce the analyses in Section 4 of the article**. To accomplish this goal let us first compute the posterior samples of the **logarithm of the likelihoods** in eq. (1) and the trajectory of the **harmonic mean estimator** as a function of the MCMC samples. 
+This section contains the **code to perform testing, estimation and uncertainty quantification**. In particular, we **reproduce the analyses in Section 4 of the article**. To accomplish this goal let us first compute the posterior samples of the **logarithm of the likelihood** in eq. (1) and the trajectory of the **harmonic mean estimator** as a function of the MCMC samples. 
 
 ``` r
 #------------------------------------------------------------------------------------------
