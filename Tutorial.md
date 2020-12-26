@@ -1,6 +1,8 @@
 Description
 ================
-As described in the [`README.md`](https://github.com/danieledurante/TESTsbm/blob/master/README.md) file, this tutorial contains guidelines and code to perform the analyses for the simulation study illustrated in the article [**Bayesian testing for exogenous partition structures in stochastic block models**](https://github.com/danieledurante/TESTsbm). In particular, you will find a detailed step-by-step guide and `R` code to **implement the Gibbs-sampler presented in the article** and to **perform posterior inference and testing** under the methods described in the article. For implementation purposes, **execute the code below considering the same order in which it is presented**.
+As described in the [`README.md`](https://github.com/danieledurante/TESTsbm/blob/master/README.md) file, this tutorial contains guidelines and code to perform the analyses for the simulation study in the article [**Bayesian testing for exogenous partition structures in stochastic block models**](https://doi.org/10.1007/s13171-020-00231-2). In particular, you will find a step-by-step guide and `R` code to **implement the Gibbs-sampler presented in the article** and to **perform posterior inference and testing** under the methods described in the article. For implementation purposes, **execute the code below considering the same order in which it is presented**.
+
+**NOTE:** The function `log_pY_z()` in the source `R` code [`TESTsbm.R`](https://github.com/danieledurante/TESTsbm/blob/master/Data%20and%20Codes/TESTsbm.R) has been updated to correct a minor bug in the original implementation. Due to this modification, some values obtained in [`Tutorial.md`](https://github.com/danieledurante/TESTsbm/blob/master/Tutorial.md) may not perfectly coincide with those reported in the simulation study illustrated in the article. However, the magnitude of these differences is minor and does not affect the final conclusions.
 
 Upload the data and codes
 ================
@@ -24,6 +26,7 @@ source("TESTsbm.R")
 load("Simulation.RData")
 
 # Note that Y must have diagonal equal to 0
+diag(Y) <- 0
 diag(Y)
 ```
 
@@ -84,27 +87,9 @@ Let us now compute the **logarithm of the harmonic mean estimate** in eq. (4) un
 l_y <- l_y_CRP[(burn_in+1):MCMC_samples]
 neg_l_y <- -c(l_y)
 l_y_post <- log(length(l_y))-max(neg_l_y)-log(sum(exp(neg_l_y-max(neg_l_y))))
-
-l_y_post
-#[1] -961.8729
 ```
 
-Before studying the Bayes factors, let us perform some **MCMC diagnostics** for the quantities computed above.
-
-``` r
-traceplot <- melt(cbind(l_y,l_temp))
-traceplot <- traceplot[,-2]
-
-traceplot$Group <- c(rep("Traceplot of the log-likelihood",dim(traceplot)[1]/2),rep("Trajectory for the logarithm of the harmonic mean estimate",dim(traceplot)[1]/2))
-traceplot$Group <- factor(traceplot$Group,levels=c("Traceplot of the log-likelihood","Trajectory for the logarithm of the harmonic mean estimate"))
-
-
-Trace <- ggplot(traceplot,aes(y=value,x=X1)) + geom_line(alpha=0.7) + facet_wrap(.~Group,scales="free") + theme_bw() + labs(y="",x="")
-ggsave("Trace.png",width=10,height=2.75)
-```
-![](https://github.com/danieledurante/TESTsbm/blob/master/Data%20and%20Codes/Trace.png)
-
-The above diagnostics confirm that our Gibbs sampler has **satisfactory mixing**. Due to the stability of the chains for the quantity in eq. (1), we can reliably compute the logarithm of the marginal likelihood under the IRM via the harmonic mean estimate in eq. (4). Once this quantity is available, we can compute the logarithm of the **Bayes Factors** to compare the IRM (which learns the partition structure from the data) and various SBMs which condition on different exogenous partitions structures; see Section 2 in the article for more details on this Bayesian testing procedure.
+Once this quantity is available, we can compute the logarithm of the **Bayes Factors** to compare the IRM (which learns the partition structure from the data) and various SBMs which condition on different exogenous partitions structures; see Section 2 in the article for more details on this Bayesian testing procedure.
 
 ``` r
 #------------------------------------------------------------------------------------------
