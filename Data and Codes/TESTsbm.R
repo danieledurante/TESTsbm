@@ -3,7 +3,6 @@
 ####################################################################################
 
 # Inputs:
-
 # Y = nxn symmetric adjacency matrix
 # z_init = vector of initialization assignment for each node (default = one cluster for each node)
 # a,b = parameters of the Beta prior on the thetas
