@@ -2,8 +2,6 @@ Description
 ================
 As described in the [`README.md`](https://github.com/danieledurante/TESTsbm/blob/master/README.md) file, this tutorial contains guidelines and code to perform the analyses for the simulation study in the article [**Bayesian testing for exogenous partition structures in stochastic block models**](https://doi.org/10.1007/s13171-020-00231-2). In particular, you will find a step-by-step guide and `R` code to **implement the Gibbs-sampler presented in the article** and to **perform posterior inference and testing** under the methods described in the article. For implementation purposes, **execute the code below considering the same order in which it is presented**.
 
-**NOTE:** The function `log_pY_z()` in the source code [`TESTsbm.R`](https://github.com/danieledurante/TESTsbm/blob/master/Data%20and%20Codes/TESTsbm.R) has been updated to correct a minor bug in the original implementation. Due to this modification, some values obtained in this tutorial may not perfectly coincide with those reported in the simulation study illustrated in the article. However, the magnitude of these differences is minor and does not affect the final conclusions.
-
 Upload the data and codes
 ================
 To start the analysis, **set the working directory** where the simulated network [`Simulation.RData`](https://github.com/danieledurante/TESTsbm/blob/master/Data%20and%20Codes/Simulation.RData), and the source code [`TESTsbm.R`](https://github.com/danieledurante/TESTsbm/blob/master/Data%20and%20Codes/TESTsbm.R) are located. Once this has been done, **clean the workspace, and load the data along with useful** `R` **packages**.
@@ -54,11 +52,11 @@ Note that for the hyperparameters of the `Beta(a,b)` **priors on the block proba
 
 Posterior inference
 ================
-This section contains the **code to perform testing, estimation and uncertainty quantification**. In particular, we **reproduce the analyses in Section 4 of the article**. To accomplish this goal let us first compute the posterior samples of the **logarithm of the likelihood** in eq. (1) and the trajectory of the **harmonic mean estimator** as a function of the MCMC samples. 
+This section contains the **code to perform testing, estimation and uncertainty quantification**. In particular, we **reproduce the analyses in Section 4 of the article**. To accomplish this goal let us first compute the posterior samples of the **logarithm of the likelihood** in eq. (2.1) and the trajectory of the **harmonic mean estimator** as a function of the MCMC samples. 
 
 ``` r
 #------------------------------------------------------------------------------------------
-# Posterior samples for the logarithm of the likelihood in eq. (1) for the IRM
+# Posterior samples for the logarithm of the likelihood in eq. (2.1) for the IRM
 #------------------------------------------------------------------------------------------
 
 l_y_CRP <- rep(0,MCMC_samples)
@@ -81,7 +79,7 @@ if (t%%1000 == 0){print(paste("Iteration:", t))}
 }
 ```
 
-Let us now compute the **logarithm of the harmonic mean estimate** in eq. (4) under the **IRM**. 
+Let us now compute the **logarithm of the harmonic mean estimate** in eq. (2.4) under the **IRM**. 
 
 ``` r
 l_y <- l_y_CRP[(burn_in+1):MCMC_samples]
@@ -90,6 +88,8 @@ l_y_post <- log(length(l_y))-max(neg_l_y)-log(sum(exp(neg_l_y-max(neg_l_y))))
 ```
 
 Once this quantity is available, we can compute the logarithm of the **Bayes Factors** to compare the IRM (which learns the partition structure from the data) and various SBMs which condition on different exogenous partitions structures; see Section 2 in the article for more details on this Bayesian testing procedure.
+
+**NOTE:** The function `log_pY_z()` in the source code [`TESTsbm.R`](https://github.com/danieledurante/TESTsbm/blob/master/Data%20and%20Codes/TESTsbm.R) has been updated to correct a minor bug in the original implementation. Due to this modification, the values of the **Bayes Factors** obtained below may not perfectly coincide with those reported in the simulation study illustrated in the article. However, the magnitude of these differences is minor and does not affect the final conclusions.
 
 ``` r
 #------------------------------------------------------------------------------------------
