@@ -97,7 +97,7 @@ Once this quantity is available, we can compute the logarithm of the **Bayes Fac
 #------------------------------------------------------------------------------------------
 
 2*(l_y_post-log_pY_z(Y,z_0,1,1))
-#[1] -5.168092
+#[1] -7.974592
 
 #------------------------------------------------------------------------------------------
 # Random exogenous partitions
@@ -106,7 +106,7 @@ Once this quantity is available, we can compute the logarithm of the **Bayes Fac
 set.seed(123)
 z_rand <- sample(z_0)
 2*(l_y_post-log_pY_z(Y,z_rand,1,1))
-#[1] 522.2722
+#[1] 583.7982
 
 #------------------------------------------------------------------------------------------
 # Refined exogenous partitions
@@ -114,7 +114,7 @@ z_rand <- sample(z_0)
 
 z_ref <- c(rep(1,10),rep(2,10),rep(3,10),rep(4,10),rep(5,10),rep(6,10))
 2*(l_y_post-log_pY_z(Y,z_ref,1,1))
-#[1] 25.68349
+#[1] 30.97882
 
 #------------------------------------------------------------------------------------------
 # Coarsened exogenous partitions
@@ -122,7 +122,7 @@ z_ref <- c(rep(1,10),rep(2,10),rep(3,10),rep(4,10),rep(5,10),rep(6,10))
 
 z_block <- c(rep(1,40),rep(2,20))
 2*(l_y_post-log_pY_z(Y,z_block,1,1))
-#[1] 260.4025
+#[1] 292.3204
 ```
 
 As expected, in the above tests, the only one which does not favor the IRM is the one where the exogenous partition under analysis is the correct `z_0`.
